@@ -34,7 +34,7 @@ public class AppServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id;
+        request.setAttribute("listaAlumnos", model.getAlumnos());
         request.getRequestDispatcher(URI_LIST).forward(request, response);
     }
 
