@@ -33,5 +33,10 @@
         </c:choose>
     </div>
 </section>
+
+<jsp:include page="WEB-INF/pages/alumnos/partes/modalAgregarAlumno.jsp" />
+
+<script src="scripts/fotobase64.js"> </script>
+
 <jsp:include page="WEB-INF/pages/comunes/footer.jsp" />
 <jsp:include page="WEB-INF/pages/comunes/finHTML.jsp" />

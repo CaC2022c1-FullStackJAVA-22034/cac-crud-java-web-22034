@@ -41,7 +41,32 @@ public class AppServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Alumno alu;
+        String accion = request.getParameter("accion");
+        accion = accion == null ? "" : accion;
+        switch (accion) {
+            case "add":
+                alu = new Alumno();
+                System.out.println("Foto:" + request.getParameter("fotoBase64"));
+                
+                cargarAlumnoSegunParams(alu, request);
+                System.out.println(alu);
+                model.addAlumno(alu);
+                break;
+            case "update":
+                break;
+            case "delete":
+                break;
+        }        
         doGet(request, response);
+    }
+    
+    private void cargarAlumnoSegunParams(Alumno a, HttpServletRequest request) {
+        a.setNombre(request.getParameter("nombre"));
+        a.setApellido(request.getParameter("apellido"));
+        a.setMail(request.getParameter("mail"));
+        a.setFechaNacimiento(request.getParameter("fechaNac"));
+        a.setFoto(request.getParameter("fotoBase64"));
     }
     
     private Modelo getModelo() throws ServletException {

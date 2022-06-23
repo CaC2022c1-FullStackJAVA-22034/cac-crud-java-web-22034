@@ -11,19 +11,19 @@
                     <div class="row">
                         <div class="col-sm-6 mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="Juan" required>
                         </div>
                         <div class="col-sm-6 mb-3">
                             <label for="apellido" class="form-label">Apellido</label>
-                            <input type="text" class="form-control" id="apellido" name="apellido" required>
+                            <input type="text" class="form-control" id="apellido" name="apellido" value="Pérez" required>
                         </div>
                         <div class="col-sm-6 mb-3">
                             <label for="mail" class="form-label">Mail</label>
-                            <input type="text" class="form-control" id="mail" name="mail" required>
+                            <input type="text" class="form-control" id="mail" name="mail" value="fake@user.com" required>
                         </div>
                         <div class="col-sm-6 mb-3">
                             <label for="fechaNac" class="form-label">Fecha de nacimiento</label>
-                            <input type="date" class="form-control" id="fechaNac" name="fechaNac" required>
+                            <input type="date" class="form-control" id="fechaNac" name="fechaNac" value="1990-05-12" required>
                         </div>
                         <div class="col-12 mb-3">
                             <label for="foto" class="form-label">Cargar foto</label>
