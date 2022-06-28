@@ -4,6 +4,7 @@ package cac.crud22034.controlador;
 import cac.crud22034.modelo.Alumno;
 import cac.crud22034.modelo.Modelo;
 import cac.crud22034.modelo.ModeloFactory;
+import cac.crud22034.modelo.ModeloHC;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.ServletException;
@@ -25,6 +26,8 @@ public class AppServlet extends HttpServlet {
 
     private Modelo model;
     private final String URI_LIST = "listadoAlumnos.jsp";
+    private final String URI_REMOVE = "WEB-INF/pages/alumnos/borrarAlumno.jsp";
+    private final String URI_EDIT = "WEB-INF/pages/alumnos/editarAlumno.jsp";
 
     @Override
     public void init() throws ServletException {
@@ -34,28 +37,53 @@ public class AppServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("listaAlumnos", model.getAlumnos());
-        request.getRequestDispatcher(URI_LIST).forward(request, response);
+        String accion = request.getParameter("accion");
+        int elId;
+        Alumno alu;
+        accion = accion == null ? "" : accion;
+        switch(accion) {
+            case "edit":
+                elId = Integer.parseInt(request.getParameter("id"));
+                alu = model.getAlumno(elId);
+                request.setAttribute("alumnoAEditar", alu);
+                request.setAttribute("yaTieneFoto", !alu.getFoto().contains("no-face"));
+                request.getRequestDispatcher(URI_EDIT).forward(request, response);
+                break;
+            case "remove":
+                elId = Integer.parseInt(request.getParameter("id"));
+                alu = model.getAlumno(elId);
+                request.setAttribute("alumnoABorrar", alu);
+                request.getRequestDispatcher(URI_REMOVE).forward(request, response);
+                break;
+            default:
+                request.setAttribute("listaAlumnos", model.getAlumnos());
+                request.getRequestDispatcher(URI_LIST).forward(request, response);
+                //response.sendRedirect(URI_LIST);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Alumno alu;
+        int elId;
         String accion = request.getParameter("accion");
         accion = accion == null ? "" : accion;
         switch (accion) {
             case "add":
-                alu = new Alumno();
-                System.out.println("Foto:" + request.getParameter("fotoBase64"));
-                
+                alu = new Alumno();                
                 cargarAlumnoSegunParams(alu, request);
-                System.out.println(alu);
                 model.addAlumno(alu);
                 break;
             case "update":
+                elId = Integer.parseInt(request.getParameter("id"));
+                alu = model.getAlumno(elId);
+                cargarAlumnoSegunParams(alu, request);
+                model.updateAlumno(alu);
                 break;
             case "delete":
+                elId = Integer.parseInt(request.getParameter("id"));
+                model.removeAlumno(elId);
                 break;
         }        
         doGet(request, response);

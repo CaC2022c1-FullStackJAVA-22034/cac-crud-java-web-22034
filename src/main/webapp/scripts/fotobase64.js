@@ -51,7 +51,8 @@ const handleChangeInputFile = async (event) => {
 
                     reader.onload = function (event) {
                         console.info(blob.size);
-                        fotoCodif = `data:${foto.type};base64,${btoa(event.target.result)}`
+                        fotoCodif = `data:${foto.type};base64,${btoa(event.target.result)}`;
+                        console.log(fotoCodif);
                         resolve();
                     };
 
