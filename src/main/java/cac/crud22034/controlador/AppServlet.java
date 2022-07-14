@@ -4,7 +4,6 @@ package cac.crud22034.controlador;
 import cac.crud22034.modelo.Alumno;
 import cac.crud22034.modelo.Modelo;
 import cac.crud22034.modelo.ModeloFactory;
-import cac.crud22034.modelo.ModeloHC;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.ServletException;
@@ -56,9 +55,10 @@ public class AppServlet extends HttpServlet {
                 request.getRequestDispatcher(URI_REMOVE).forward(request, response);
                 break;
             default:
-                request.setAttribute("listaAlumnos", model.getAlumnos());
-                request.getRequestDispatcher(URI_LIST).forward(request, response);
-                //response.sendRedirect(URI_LIST);
+                HttpSession sesionHttp = request.getSession();
+                sesionHttp.setAttribute("listaAlumnos", model.getAlumnos());
+                //request.getRequestDispatcher(URI_LIST).forward(request, response);
+                response.sendRedirect(URI_LIST);
         }
     }
 
